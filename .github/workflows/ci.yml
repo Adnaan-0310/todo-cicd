@@ -20,6 +20,9 @@ jobs:
       - name: Run Docker image
         run: docker run --rm -v "$PWD":/app -e GITHUB_USER="${{ github.actor }}" task-manager:latest
 
+      - name: Fix file ownership
+        run: sudo chown -R "$(id -u):$(id -g)" .
+
       - name: Commit updated index.html
         run: |
           git config user.name "github-actions[bot]"
